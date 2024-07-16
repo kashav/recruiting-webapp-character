@@ -3,6 +3,7 @@ import { ATTRIBUTE_LIST, CLASS_LIST, SKILL_LIST } from './consts.js';
 import Attribute from './Attribute.js';
 import CharacterClass from './CharacterClass.js';
 import Skill from './Skill.js';
+import SkillCheck from './SkillCheck.js';
 
 
 function computeModifierValue({value}) {
@@ -147,12 +148,28 @@ function CharacterSheet({ characterData }) {
     return (
         <>
             <div>
-            <h2>Attributes (available points: {availableAttributeModifierPoints()})</h2>
-            {attributes}
-            <h2>Classes</h2>
-            {classes}
-            <h2>Skills (available skill points: {maxSkillPoints - usedSkillPoints})</h2>
-            {skills}
+            <table className="CharacterSheet-table">
+                <tr>
+                    <td colSpan={3}>
+                        <h3>Skill check</h3>
+                        <SkillCheck attributeData={attributeData} skillData={skillData} />
+                    </td>
+                </tr>
+                <tr>
+                <td>
+                    <h2>Attributes (available points: {availableAttributeModifierPoints()})</h2>
+                    {attributes}
+                </td>
+                <td>
+                    <h2>Classes</h2>
+                    {classes}
+                </td>
+                <td>
+                    <h2>Skills (available skill points: {maxSkillPoints - usedSkillPoints})</h2>
+                    {skills}
+                </td>
+                </tr>
+            </table>
             </div>
         </>
     );
