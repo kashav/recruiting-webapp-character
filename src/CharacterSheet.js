@@ -128,7 +128,8 @@ function CharacterSheet({ characterData }) {
 
     const skills = Object.entries(skillData).map(([name, skill], i) => {
         return (
-            <Skill key={i}
+            <Skill
+                key={i}
                 name={name}
                 skillObj={skill}
                 modifierValue={getCurrentModifierValueForAttribute(skill.attributeModifier)}

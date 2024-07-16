@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 import CharacterSheet from './CharacterSheet';
@@ -9,25 +9,12 @@ const API_URL = "https://recruiting.verylongdomaintotestwith.ca/api/kashav/chara
 function App() {
   const [characters, setCharacters] = useState([]);
 
-  const handleUpdateData = index => {
-    return (delta) => {
-      setCharacters(prevCharacters => {
-        prevCharacters[index] = {
-          ...prevCharacters[index],
-          ...delta,
-        }
-
-        return [...prevCharacters];
-      })
-    }
-  }
-
   const handleAddNewCharacter = () => {
     const newCharacter = {};
     setCharacters(prevCharacters => [...prevCharacters, newCharacter]);
   };
 
-  const handleSaveCharacters = async () => {
+  const handleSaveCharactersToDatabase = async () => {
     try {
       const options = {
         method: 'POST',
@@ -42,7 +29,7 @@ function App() {
     }
   }
 
-  const handleLoadCharacters = async () => {
+  const handleLoadCharactersFromAPI = async () => {
     try {
       const response = await fetch(API_URL)
       const data = await response.json();
@@ -59,8 +46,8 @@ function App() {
       </header>
       <section className="App-section">
         <button onClick={handleAddNewCharacter}>Add character</button>
-        <button onClick={handleSaveCharacters}>Save characters</button>
-        <button onClick={handleLoadCharacters}>Load characters</button>
+        <button onClick={handleSaveCharactersToDatabase}>Save characters</button>
+        <button onClick={handleLoadCharactersFromAPI}>Load characters</button>
       </section>
       {characters.map((character, i) => {
         return (
